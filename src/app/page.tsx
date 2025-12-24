@@ -7,9 +7,13 @@ import PricingSection from "@/components/landing/PricingSection";
 import WhatToAsk from "@/components/landing/WhatToAsk";
 import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, SignOutButton , SignUpButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const user=await currentUser()
+  if(user) redirect("/dashboard");
   return (
     <div className="min-h-screen bg-background">
       <Header />
