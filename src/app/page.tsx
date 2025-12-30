@@ -10,9 +10,11 @@ import { SignedIn, SignedOut, SignOutButton , SignUpButton } from "@clerk/nextjs
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import { syncUser } from "@/lib/actions/users";
 
 export default async function Home() {
-  const user=await currentUser()
+  const user=await currentUser();
+  await syncUser();
   if(user) redirect("/dashboard");
   return (
     <div className="min-h-screen bg-background">
